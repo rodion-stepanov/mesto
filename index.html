@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mesto</title>
+    <link rel="stylesheet" href="./pages/index.css" />
+  </head>
+
+  <body>
+    <div class="page">
+      <header class="header header_position_center">
+        <img src="./images/logo.svg" alt="Лого Место" class="header__logo" />
+      </header>
+      <main>
+        <section class="profile profile_position_center">
+          <img src="./images/Avatar.png" alt="Аватар" class="profile__avatar" />
+          <div class="profile__edit-info">
+            <div class="profile__info">
+              <h1 class="profile__name">Жак-Ив Кусто</h1>
+              <p class="profile__description">Исследователь океана</p>
+            </div>
+            <button class="profile__edit-button"></button>
+          </div>
+          <button class="profile__button">+</button>
+        </section>
+
+        <section class="popup popup_position_center">
+          <form class="popup__container">
+            <p class="popup__header">Редактировать профиль</p>
+            <input type="text" class="popup__user-name" />
+            <input type="text" class="popup__user-description" />
+            <button type="submit" class="popup__save-button">Сохранить</button>
+          </form>
+          <button class="popup__close-button"></button>
+        </section>
+
+        <section class="cards cards_position_center">
+          <figure class="cards__item">
+            <img
+              src="./images/zhangye_danxia.jpg"
+              alt="Разноцветная гора"
+              class="cards__image"
+            />
+            <figcaption class="cards__name">
+              <p class="cards__name-caption">Чжанъе Данксиа</p>
+              <button class="cards__name-button"></button>
+            </figcaption>
+          </figure>
+
+          <figure class="cards__item">
+            <img src="./images/Cinque_Terre.jpg" alt="Город на скале" class="cards__image" />
+            <figcaption class="cards__name">
+              <p class="cards__name-caption">Чинкве-Терре</p>
+              <button class="cards__name-button"></button>
+            </figcaption>
+          </figure>
+
+          <figure class="cards__item">
+            <img src="./images/Bastei.jpg" alt="Мост над пропастью" class="cards__image" />
+            <figcaption class="cards__name">
+              <p class="cards__name-caption">Бастай</p>
+              <button class="cards__name-button"></button>
+            </figcaption>
+          </figure>
+
+          <figure class="cards__item">
+            <img src="./images/New_York.jpg" alt="Вид на город" class="cards__image" />
+            <figcaption class="cards__name">
+              <p class="cards__name-caption">Нью-Йорк</p>
+              <button class="cards__name-button"></button>
+            </figcaption>
+          </figure>
+
+          <figure class="cards__item">
+            <img src="/images/Salar_de_Uyuni.jpg" alt="Пустынный солончак" class="cards__image" />
+            <figcaption class="cards__name">
+              <p class="cards__name-caption">Салар де Уюни</p>
+              <button class="cards__name-button"></button>
+            </figcaption>
+          </figure>
+
+          <figure class="cards__item">
+            <img src="./images/Pamukkale.jpg" alt="Геотермальный источник" class="cards__image" />
+            <figcaption class="cards__name">
+              <p class="cards__name-caption">Памуккале</p>
+              <button class="cards__name-button"></button>
+            </figcaption>
+          </figure>
+        </section>
+      </main>
+      <footer class="footer footer_position_center">
+        <p class="footer__text">&#169; 2020 Mesto Russia</p>
+      </footer>
+    </div>
+    <script src="./script.js"></script>
+  </body>
+</html>

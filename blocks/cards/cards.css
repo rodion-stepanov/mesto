@@ -1,0 +1,29 @@
+@import url(./_position/cards_position_center.css);
+@import url(./__item/cards__item.css);
+@import url(./__image/cards__image.css);
+@import url(./__name-button/cards__name-button.css);
+@import url(./__name/cards__name.css);
+@import url(./__name-caption/cards__name-caption.css);
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(3, 282px);
+  grid-template-rows: repeat(2, 361x);
+  grid-row-gap: 21px;
+  grid-column-gap: 18px;
+}
+
+@media screen and (max-width: 1023px) {
+  .cards {
+    grid-template-columns: repeat(2, 282px);
+    grid-template-rows: repeat(3, 361px);
+  }
+}
+
+@media screen and (max-width: 670px) {
+  .cards {
+    grid-template-columns: 282px;
+    grid-template-rows: repeat(6, 361px);
+    grid-column-gap: 0;
+  }
+}

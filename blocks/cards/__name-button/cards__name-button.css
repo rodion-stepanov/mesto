@@ -1,0 +1,18 @@
+.cards__name-button {
+  background-image: url("../../../images/Vector.svg");
+  background-color: rgba(0, 0, 0, 0);
+  background-repeat: no-repeat;
+  align-self: center;
+  margin-right: 21px;
+  border: none;
+  outline: none;
+  width: 20.76px;
+  height: 18.13px;
+  padding: 0;
+  cursor: pointer;
+}
+
+.cards__name-button:hover {
+  transition: 0.5s ease-in;
+  opacity: 0.6;
+}

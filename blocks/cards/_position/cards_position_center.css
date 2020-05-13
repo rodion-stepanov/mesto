@@ -1,0 +1,12 @@
+.cards_position_center {
+  justify-content: center;
+  max-width: 1200px;
+  margin: 50px auto;
+}
+
+@media screen and (max-width: 670px) {
+  .cards_position_center {
+    width: 88.12%;
+    margin-top: 36px;
+  }
+}
