@@ -1,9 +1,8 @@
 .cards__name {
   background-color: #ffffff;
-  border-radius: 0 0 10px 10px;
   display: flex;
   justify-content: space-between;
   hyphens: none;
   max-width: 282px;
   white-space: nowrap;
-}
+} 
