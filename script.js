@@ -1,15 +1,15 @@
 const editProfilePopup = document.querySelector(".popup");
 const editProfileButton = document.querySelector(".profile__edit-button");
 const closeProfileButton = document.querySelector(".popup__close-button");
-const nameInput = document.querySelector(".popup__user_value_name");
-const jobInput = document.querySelector(".popup__user_value_description");
-const profileName = document.querySelector(".profile__name");
-const profileDescription = document.querySelector(".profile__description");
+let nameInput = document.querySelector(".popup__user_value_name");
+let jobInput = document.querySelector(".popup__user_value_description");
+let profileName = document.querySelector(".profile__name");
+let profileDescription = document.querySelector(".profile__description");
 const formElement = document.querySelector(".popup__container");
 
 function popup() {
   editProfilePopup.classList.toggle("popup_opened");
-  if ("submit") {
+  if (editProfilePopup.classList.contains("popup_opened")) {
     nameInput.value = profileName.textContent;
     jobInput.value = profileDescription.textContent;
   }
