@@ -1,4 +1,9 @@
 .profile__edit-info {
   display: flex;
-  margin: auto;
+}
+
+@media screen and (max-width: 1023px) {
+  .profile__edit-info {
+    margin: auto;
+  }
 }
