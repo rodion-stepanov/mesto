@@ -4,24 +4,28 @@
   border: none;
   outline: none;
   cursor: pointer;
+  background-size: contain;
+  background-repeat: no-repeat;
   width: 60px;
   height: 60px;
   padding: 0;
-  position: fixed;
-  align-self: center;
-  margin-left: 232px;
-  margin-top: -278px;
+  /* position: fixed; */
+  align-self: flex-end;
+  margin-top: -50px;
+  margin-right: -45px;
+  /* margin-left: 232px;
+  margin-top: -278px; */
 }
 
 .popup__close-button:hover {
   transition: 0.5s ease-in;
   opacity: 0.6;
 }
-
+ 
 @media screen and (max-width: 539px) {
   .popup__close-button {
-    margin-left: 135px;
-    margin-top: -300px;
+    width: 40px;
+    height: 42px;
+    margin-top: -33px;
+    margin-right: -32px;
   }
-}
- 

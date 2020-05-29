@@ -10,3 +10,11 @@
   outline: none;
   padding-bottom: 10px;
 }
+
+@media screen and (max-width: 539px) {
+  .popup__user {
+    font-size: 12px;
+    line-height: 15px;
+    margin: 0 20px 0;
+  }
+}
