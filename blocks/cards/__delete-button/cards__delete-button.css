@@ -8,8 +8,8 @@
     width: 20px;
     height: 20px;
     position: absolute;
-    align-self: flex-end;
-    margin: 18px 0px 0 -20px;
+    margin-top: 20px;
+    margin-left: 250px;
 }
 
 .cards__delete-button:hover {
