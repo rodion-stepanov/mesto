@@ -75,9 +75,8 @@ function profileSubmitHandler(evt) {
 
 //Обработчики
 function setCardEventListeners(item) {
-  item.querySelector('.cards__like-button').addEventListener('click', function (evt) {
-    evt.target.classList.toggle('cards__like-button_active');
-  });
+  item.querySelector('.cards__like-button').addEventListener('click', (evt) => 
+    evt.target.classList.toggle('cards__like-button_active'));
   item.querySelector('.cards__delete-button').addEventListener('click', function (evt) {
     const card = evt.target.closest('.cards__item');
     card.remove();
@@ -99,25 +98,30 @@ function addNewCard(item) {
   newCardImage.src = item.link;
   newCardImage.alt = item.name;
   setCardEventListeners(placeCard);
-  cardsSection.prepend(placeCard);
+  return placeCard
 }
 
 //Добавление новой карточки
 function addCardSubmitHandler(evt) {
   evt.preventDefault();
-  let newCard = {
+  const newCard = {
     name: "",
     link: "",
   };
   newCard.name = inputPlaceName.value;
   newCard.link = inputPlaceImage.value;
-  addNewCard(newCard);
+  renderCard(newCard);
   closePopup(formAddCard);
 }
 
-//Дбавления карточек из массива
-function renderArray(arr) {
-  initialCards.forEach(arr);
+//Добавление карточек из массива
+function renderArray(item) {
+  initialCards.forEach(item);
+}
+
+//Добавление карточек на страницу
+function renderCard(card) {
+  cardsSection.prepend(addNewCard(card));
 }
 
 //Открытие, закрытие и отправка данных. Попап редактирования профиля 
@@ -126,9 +130,8 @@ editProfileButton.addEventListener("click", function () {
   jobInput.value = profileDescription.textContent;
   openPopup(editProfilePopup);
 });
-closeProfileButton.addEventListener("click", function () {
-  closePopup(editProfilePopup);
-});
+closeProfileButton.addEventListener("click", () =>
+  closePopup(editProfilePopup));
 formElement.addEventListener("submit", profileSubmitHandler);
 
 //Открытие, закрытие и отправка данных. Попап добавления карточки
@@ -137,14 +140,12 @@ addCardButton.addEventListener("click", function () {
   inputPlaceImage.value = '';
   openPopup(formAddCard);
 });
-cardCloseButton.addEventListener("click", function () {
-  closePopup(formAddCard);
-});
+cardCloseButton.addEventListener("click", () =>
+  closePopup(formAddCard));
 formAddCard.addEventListener("submit", addCardSubmitHandler);
 
 //Закрытие попапа с картинкой
-closeImage.addEventListener("click", function () {
-  closePopup(openImage);
-});
+closeImage.addEventListener("click", () =>
+  closePopup(openImage));
 
-renderArray(addNewCard);
+renderArray(renderCard);
