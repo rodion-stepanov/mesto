@@ -26,54 +26,55 @@
         <button type="button" class="profile__button"></button>
       </section>
 
-      <section class="popup">
-        <form action="#" method="GET" name="user-form" class="popup__container">
-          <button type="reset" class="popup__close-button"></button>
-          <h2 class="popup__header">Редактировать профиль</h2>
-          <input type="text" name="user-name" class="popup__user popup__user_value_name" />
-          <input type="text" name="user-description" class="popup__user popup__user_value_description" />
-          <button type="submit" class="popup__save-button">Сохранить</button>
-        </form>
-      </section>
-
-      <section class="popup popup_card_add">
-        <form action="#" method="GET" name="user-form" class="popup__container">
-          <button type="reset" class="popup__close-button popup__close-button_card_close"></button>
-          <h2 class="popup__header">Новое место</h2>
-          <input type="text" name="user-name" placeholder="Название" class="popup__user popup__user_place_name" />
-          <input type="text" name="user-description" placeholder="Ссылка на картинку"
-            class="popup__user popup__user_place_image" />
-          <button type="submit" class="popup__save-button">Создать</button>
-        </form>
-      </section>
-
-      <section class="popup popup_image_open">
-        <div class="popup__image-container">
-          <button class="popup__close-button popup__close-button_image_close"></button>
-          <img class="popup__image"
-            src='#' alt="">
-          <p class="popup__caption"></p>
-        </div>
-      </section>
-
-      <section class="cards">
-        <template id="card">
-          <figure class="cards__item">
-            <img class="cards__image" />
-            <button class="cards__delete-button"></button>
-            <figcaption class="cards__name">
-              <p class="cards__name-caption"></p>
-              <button type="button" class="cards__like-button"></button>
-            </figcaption>
-          </figure>
-        </template>
-      </section>
+      <section class="cards"></section>
     </main>
 
     <footer class="footer">
       <p class="footer__text">&#169; 2020 Mesto Russia</p>
     </footer>
   </div>
+
+  <section class="popup">
+    <form action="#" method="GET" name="user-form" class="popup__container">
+      <button type="reset" class="popup__close-button"></button>
+      <h2 class="popup__header">Редактировать профиль</h2>
+      <input type="text" name="user-name" class="popup__user popup__user_value_name" />
+      <input type="text" name="user-description" class="popup__user popup__user_value_description" />
+      <button type="submit" class="popup__save-button">Сохранить</button>
+    </form>
+  </section>
+
+  <section class="popup popup_card_add">
+    <form action="#" method="GET" name="user-form" class="popup__container">
+      <button type="reset" class="popup__close-button popup__close-button_card_close"></button>
+      <h2 class="popup__header">Новое место</h2>
+      <input type="text" name="user-name" placeholder="Название" class="popup__user popup__user_place_name" />
+      <input type="text" name="user-description" placeholder="Ссылка на картинку"
+        class="popup__user popup__user_place_image" />
+      <button type="submit" class="popup__save-button">Создать</button>
+    </form>
+  </section>
+
+  <section class="popup popup_image_open">
+    <div class="popup__image-container">
+      <button class="popup__close-button popup__close-button_image_close"></button>
+      <img class="popup__image" src='#' alt="">
+      <h2 class="popup__caption"></h2>
+    </div>
+  </section>
+
+  <template id="card">
+    <figure class="cards__item">
+      <img class="cards__image" />
+      <button class="cards__delete-button"></button>
+      <figcaption class="cards__name">
+        <p class="cards__name-caption"></p>
+        <button type="button" class="cards__like-button"></button>
+      </figcaption>
+    </figure>
+  </template>
+
   <script src="./script.js"></script>
 </body>
+
 </html>

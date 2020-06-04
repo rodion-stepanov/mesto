@@ -91,7 +91,7 @@ function setCardEventListeners(item) {
 }
 
 //Функция создания новой карточки
-function addNewCard(item) {
+function createNewCard(item) {
   const placeCard = placeTemplate.cloneNode(true);
   placeCard.querySelector('.cards__name-caption').textContent = item.name;
   const newCardImage = placeCard.querySelector('.cards__image')
@@ -99,6 +99,11 @@ function addNewCard(item) {
   newCardImage.alt = item.name;
   setCardEventListeners(placeCard);
   return placeCard
+}
+
+//Добавление карточек на страницу
+function renderCard(card) {
+  cardsSection.prepend(createNewCard(card));
 }
 
 //Добавление новой карточки
@@ -115,13 +120,8 @@ function addCardSubmitHandler(evt) {
 }
 
 //Добавление карточек из массива
-function renderArray(item) {
-  initialCards.forEach(item);
-}
-
-//Добавление карточек на страницу
-function renderCard(card) {
-  cardsSection.prepend(addNewCard(card));
+function renderArray(addCard) {
+  initialCards.forEach(addCard);
 }
 
 //Открытие, закрытие и отправка данных. Попап редактирования профиля 
