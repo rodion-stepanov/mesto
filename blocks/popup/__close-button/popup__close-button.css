@@ -9,12 +9,9 @@
   width: 60px;
   height: 60px;
   padding: 0;
-  /* position: fixed; */
   align-self: flex-end;
   margin-top: -50px;
   margin-right: -45px;
-  /* margin-left: 232px;
-  margin-top: -278px; */
 }
 
 .popup__close-button:hover {
@@ -29,3 +26,4 @@
     margin-top: -33px;
     margin-right: -32px;
   }
+}

@@ -35,23 +35,27 @@
   </div>
 
   <section class="popup">
-    <form action="#" method="GET" name="user-form" class="popup__container">
+    <form action="#" method="GET" name="user-form" class="popup__container" novalidate>
       <button type="reset" class="popup__close-button"></button>
       <h2 class="popup__header">Редактировать профиль</h2>
-      <input type="text" name="user-name" class="popup__user popup__user_value_name" />
-      <input type="text" name="user-description" class="popup__user popup__user_value_description" />
-      <button type="submit" class="popup__save-button">Сохранить</button>
+      <input autocomplete="off" id="user-name" type="text" name="user-name" class="popup__input popup__input_value_name" minlength="2" maxlength="40" required/>
+      <span id="user-name-error" class="popup__error popup__error_position_top"></span>
+      <input  autocomplete="off" id="user-description" type="text" name="user-description" class="popup__input popup__input_value_description" minlength="2" maxlength="200" required/>
+      <span id="user-description-error" class="popup__error popup__error_position_bottom"></span>
+      <button type="submit" class="popup__save-button popup__save-button_disabled" disabled>Сохранить</button>
     </form>
   </section>
 
   <section class="popup popup_card_add">
-    <form action="#" method="GET" name="user-form" class="popup__container">
+    <form action="#" method="GET" name="user-form" class="popup__container" novalidate>
       <button type="reset" class="popup__close-button popup__close-button_card_close"></button>
       <h2 class="popup__header">Новое место</h2>
-      <input type="text" name="user-name" placeholder="Название" class="popup__user popup__user_place_name" />
-      <input type="text" name="user-description" placeholder="Ссылка на картинку"
-        class="popup__user popup__user_place_image" />
-      <button type="submit" class="popup__save-button">Создать</button>
+      <input  autocomplete="off" id="card-name" type="text" name="card-name" placeholder="Название" class="popup__input popup__input_place_name" minlength="1" maxlength="30" required/>
+      <span id="card-name-error" class="popup__error popup__error_position_top"></span>
+      <input  autocomplete="off" id="card-url" type="url" name="card-url" placeholder="Ссылка на картинку"
+        class="popup__input popup__input_place_image" required/>
+        <span id="card-url-error" class="popup__error popup__error_position_bottom"></span>
+      <button type="submit" class="popup__save-button popup__save-button_disabled" disabled>Создать</button>
     </form>
   </section>
 
@@ -74,6 +78,7 @@
     </figure>
   </template>
 
+  <script src="./validate.js"></script>
   <script src="./script.js"></script>
 </body>
 

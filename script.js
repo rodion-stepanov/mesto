@@ -1,8 +1,8 @@
 const editProfilePopup = document.querySelector(".popup");
 const editProfileButton = document.querySelector(".profile__edit-button");
 const closeProfileButton = document.querySelector(".popup__close-button");
-const nameInput = document.querySelector(".popup__user_value_name");
-const jobInput = document.querySelector(".popup__user_value_description");
+const nameInput = document.querySelector(".popup__input_value_name");
+const jobInput = document.querySelector(".popup__input_value_description");
 const profileName = document.querySelector(".profile__name");
 const profileDescription = document.querySelector(".profile__description");
 const formElement = document.querySelector(".popup__container");
@@ -13,8 +13,8 @@ const openImage = document.querySelector(".popup_image_open");
 const closeImage = document.querySelector(".popup__close-button_image_close");
 const popupImage = document.querySelector(".popup__image");
 const popupCaption = document.querySelector(".popup__caption");
-const inputPlaceName = document.querySelector(".popup__user_place_name");
-const inputPlaceImage = document.querySelector(".popup__user_place_image");
+const inputPlaceName = document.querySelector(".popup__input_place_name");
+const inputPlaceImage = document.querySelector(".popup__input_place_image");
 const cardsSection = document.querySelector('.cards');
 const placeTemplate = document.querySelector("#card").content;
 
@@ -53,17 +53,45 @@ function keyPress(e) {
   }
 }
 
+//Закрытие всех попапов по клику на оверлей
+function onclickClosePopup(evt) {
+  const openedPopup = document.querySelector('.popup_opened');
+  const popup = openedPopup.closest('.popup');
+  if (evt.target === popup) {
+    closePopup(openedPopup);
+  }
+}
+
 //Функция открытия попапа
 function openPopup(elem) {
   elem.classList.add("popup_opened");
   document.addEventListener('keydown', keyPress);
+  document.addEventListener('click', onclickClosePopup);
 }
 
 //Функция закрытия попапа
 function closePopup(elem) {
+  resetAfterClosePopup(elem);
   elem.classList.remove("popup_opened");
   document.removeEventListener('keydown', keyPress);
+  document.removeEventListener('click', onclickClosePopup);
 }
+
+//Убрать ошибки и обнулить кнопку сохранения при закрытии попапа
+function resetAfterClosePopup(openedPopup) {
+  if (!openedPopup.classList.contains('popup_image_open')) {
+    const inputs = Array.from(openedPopup.querySelectorAll('.popup__input'));
+    inputs.forEach(inputElement => {
+      inputElement.classList.remove('popup__input_type_error');
+      const errorElement = openedPopup.querySelector(`#${inputElement.id}-error`);
+      errorElement.textContent = '';
+    });
+    const button = openedPopup.querySelector('.popup__save-button');
+    button.classList.add('popup__save-button_disabled');
+    button.setAttribute('disabled', true);
+  }
+}
+
 
 //Функция отправки в редактировании профиля
 function profileSubmitHandler(evt) {
@@ -75,7 +103,7 @@ function profileSubmitHandler(evt) {
 
 //Обработчики
 function setCardEventListeners(item) {
-  item.querySelector('.cards__like-button').addEventListener('click', (evt) => 
+  item.querySelector('.cards__like-button').addEventListener('click', (evt) =>
     evt.target.classList.toggle('cards__like-button_active'));
   item.querySelector('.cards__delete-button').addEventListener('click', function (evt) {
     const card = evt.target.closest('.cards__item');
@@ -149,3 +177,58 @@ closeImage.addEventListener("click", () =>
   closePopup(openImage));
 
 renderArray(renderCard);
+
+//Проверка формы на валидность
+const hasInvalidInput = (inputList) => {
+  return inputList.some((inputElement) => {
+    return !inputElement.validity.valid;
+  })
+};
+
+//Если форма не валидна, то кнопка становится неактивной и обратно 
+const toggleButtonState = (inputList, button, disabledButton) => {
+  if (hasInvalidInput(inputList)) {
+    button.classList.add(disabledButton);
+    button.setAttribute('disabled', true);
+  }
+  else {
+    button.classList.remove(disabledButton);
+    button.removeAttribute('disabled');
+  }
+};
+
+//Функция отображения ошибки о невалидности поля
+function showError(input, error, errorText, inputErrorClass) {
+  input.classList.add(inputErrorClass);
+  errorText.textContent = input.validationMessage;
+  errorText.classList.add(error);
+};
+
+//Функция скрытия ошибки о невалидности поля
+function hideError(input, error, errorText, inputErrorClass) {
+  input.classList.remove(inputErrorClass);
+  errorText.classList.remove(error);
+  errorText.textContent = '';
+};
+
+//Функция добавления и скрытия ошибок в зависимости от валидности полей 
+function isValid(evt, error, inputErrorClass) {
+  const input = evt.target;
+  const errorText = document.querySelector(`#${input.id}-error`);
+  if (!input.validity.valid) {
+    showError(input, error, errorText, inputErrorClass);
+
+  }
+  else {
+    hideError(input, error, errorText, inputErrorClass);
+  }
+}
+
+enableValidation({
+  formSelector: '.popup__container',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__save-button',
+  inactiveButtonClass: 'popup__save-button_disabled',
+  inputErrorClass: 'popup__input_type_error',
+  errorClass: 'popup__error_visible'
+});
