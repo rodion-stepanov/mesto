@@ -45,6 +45,29 @@ const initialCards = [
   }
 ];
 
+//Убрать ошибки и обнулить кнопку сохранения при закрытии попапа
+function resetAfterClosePopup(openedPopup) {
+  if (!openedPopup.classList.contains('popup_image_open')) {
+    const inputs = Array.from(openedPopup.querySelectorAll('.popup__input'));
+    inputs.forEach((inputElement) => {
+      inputElement.classList.remove('popup__input_type_error');
+      const errorElement = openedPopup.querySelector(`#${inputElement.id}-error`);
+      errorElement.textContent = '';
+    });
+    const button = openedPopup.querySelector('.popup__save-button');
+    button.classList.add('popup__save-button_disabled');
+    button.setAttribute('disabled', true);
+  }
+}
+
+//Функция закрытия попапа
+function closePopup(elem) {
+  resetAfterClosePopup(elem);
+  elem.classList.remove("popup_opened");
+  document.removeEventListener('keydown', keyPress);
+  document.removeEventListener('click', onclickClosePopup);
+}
+
 //закрытие все попапов по клавише escape
 function keyPress(e) {
   if (e.key === "Escape") {
@@ -68,30 +91,6 @@ function openPopup(elem) {
   document.addEventListener('keydown', keyPress);
   document.addEventListener('click', onclickClosePopup);
 }
-
-//Функция закрытия попапа
-function closePopup(elem) {
-  resetAfterClosePopup(elem);
-  elem.classList.remove("popup_opened");
-  document.removeEventListener('keydown', keyPress);
-  document.removeEventListener('click', onclickClosePopup);
-}
-
-//Убрать ошибки и обнулить кнопку сохранения при закрытии попапа
-function resetAfterClosePopup(openedPopup) {
-  if (!openedPopup.classList.contains('popup_image_open')) {
-    const inputs = Array.from(openedPopup.querySelectorAll('.popup__input'));
-    inputs.forEach(inputElement => {
-      inputElement.classList.remove('popup__input_type_error');
-      const errorElement = openedPopup.querySelector(`#${inputElement.id}-error`);
-      errorElement.textContent = '';
-    });
-    const button = openedPopup.querySelector('.popup__save-button');
-    button.classList.add('popup__save-button_disabled');
-    button.setAttribute('disabled', true);
-  }
-}
-
 
 //Функция отправки в редактировании профиля
 function profileSubmitHandler(evt) {
@@ -177,52 +176,6 @@ closeImage.addEventListener("click", () =>
   closePopup(openImage));
 
 renderArray(renderCard);
-
-//Проверка формы на валидность
-const hasInvalidInput = (inputList) => {
-  return inputList.some((inputElement) => {
-    return !inputElement.validity.valid;
-  })
-};
-
-//Если форма не валидна, то кнопка становится неактивной и обратно 
-const toggleButtonState = (inputList, button, disabledButton) => {
-  if (hasInvalidInput(inputList)) {
-    button.classList.add(disabledButton);
-    button.setAttribute('disabled', true);
-  }
-  else {
-    button.classList.remove(disabledButton);
-    button.removeAttribute('disabled');
-  }
-};
-
-//Функция отображения ошибки о невалидности поля
-function showError(input, error, errorText, inputErrorClass) {
-  input.classList.add(inputErrorClass);
-  errorText.textContent = input.validationMessage;
-  errorText.classList.add(error);
-};
-
-//Функция скрытия ошибки о невалидности поля
-function hideError(input, error, errorText, inputErrorClass) {
-  input.classList.remove(inputErrorClass);
-  errorText.classList.remove(error);
-  errorText.textContent = '';
-};
-
-//Функция добавления и скрытия ошибок в зависимости от валидности полей 
-function isValid(evt, error, inputErrorClass) {
-  const input = evt.target;
-  const errorText = document.querySelector(`#${input.id}-error`);
-  if (!input.validity.valid) {
-    showError(input, error, errorText, inputErrorClass);
-
-  }
-  else {
-    hideError(input, error, errorText, inputErrorClass);
-  }
-}
 
 enableValidation({
   formSelector: '.popup__container',
