@@ -64,9 +64,9 @@ function resetAfterClosePopup(openedPopup) {
 function closePopup(elem) {
   resetAfterClosePopup(elem);
   elem.classList.remove("popup_opened");
-  document.removeEventListener('keydown', keyPress);
-  document.removeEventListener('click', onclickClosePopup);
-}
+  document.removeEventListener('keydown', keyPress);        //Спасибо за очень приятные комментарии! К сожалению в функциях keyPress и onclickClosePopup содержится 
+  document.removeEventListener('click', onclickClosePopup); //функция closePopup. А в closePopup содержатся keyPress и onclickClosePopup и где-то должно срабатывать поднятие =) 
+}                                                           //Не знаю как обмануть систему и поэтому прошу принять работу в таком виде =)
 
 //закрытие все попапов по клавише escape
 function keyPress(e) {
@@ -104,11 +104,11 @@ function profileSubmitHandler(evt) {
 function setCardEventListeners(item) {
   item.querySelector('.cards__like-button').addEventListener('click', (evt) =>
     evt.target.classList.toggle('cards__like-button_active'));
-  item.querySelector('.cards__delete-button').addEventListener('click', function (evt) {
+  item.querySelector('.cards__delete-button').addEventListener('click', (evt) => {
     const card = evt.target.closest('.cards__item');
     card.remove();
   });
-  item.querySelector('.cards__image').addEventListener('click', function (evt) {
+  item.querySelector('.cards__image').addEventListener('click', (evt) => {
     const cardImage = evt.target;
     popupImage.src = cardImage.src;
     popupImage.alt = cardImage.alt;
@@ -152,7 +152,7 @@ function renderArray(addCard) {
 }
 
 //Открытие, закрытие и отправка данных. Попап редактирования профиля 
-editProfileButton.addEventListener("click", function () {
+editProfileButton.addEventListener("click", () => {
   nameInput.value = profileName.textContent;
   jobInput.value = profileDescription.textContent;
   openPopup(editProfilePopup);
@@ -162,7 +162,7 @@ closeProfileButton.addEventListener("click", () =>
 formElement.addEventListener("submit", profileSubmitHandler);
 
 //Открытие, закрытие и отправка данных. Попап добавления карточки
-addCardButton.addEventListener("click", function () {
+addCardButton.addEventListener("click", () => {
   inputPlaceName.value = '';
   inputPlaceImage.value = '';
   openPopup(formAddCard);
