@@ -57,6 +57,8 @@ const popupSelectors = {
 
 const editValidation = new FormValidator(popupSelectors, editProfilePopup);
 const addCardValidation = new FormValidator(popupSelectors, formAddCard);
+editValidation.enableValidation();
+addCardValidation.enableValidation();
 
 //Функция отправки в редактировании профиля
 function profileSubmitHandler(evt) {
@@ -84,8 +86,9 @@ function addCardSubmitHandler(evt) {
 editProfileButton.addEventListener("click", () => {
   nameInput.value = profileName.textContent;
   jobInput.value = profileDescription.textContent;
+  
+  editValidation.resetAfterClosePopup();
   openPopup(editProfilePopup);
-  editValidation.enableValidation();
 });
 closeProfileButton.addEventListener("click", () =>
   closePopup(editProfilePopup));
@@ -95,7 +98,7 @@ formElement.addEventListener("submit", profileSubmitHandler);
 addCardButton.addEventListener("click", () => {
   inputPlaceName.value = '';
   inputPlaceImage.value = '';
-  addCardValidation.enableValidation();
+  addCardValidation.resetAfterClosePopup();
   openPopup(formAddCard);
 });
 cardCloseButton.addEventListener("click", () =>
@@ -110,5 +113,5 @@ closeImage.addEventListener("click", () =>
 initialCards.forEach((item) => {
   const card = new Card(item, '#card');
   const cardElement = card.generateCard();
-  cardsSection.prepend(cardElement);
+  cardsSection.append(cardElement);
 });

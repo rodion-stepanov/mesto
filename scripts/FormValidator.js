@@ -9,58 +9,70 @@ export class FormValidator {
     this._editForm = editForm;
   }
   enableValidation() {
-    const inputElements = Array.from(this._editForm.querySelectorAll(this._inputSelector));
-    const submitButton = this._editForm.querySelector(this._submitButtonSelector);
-    inputElements.forEach((input) => {
-      input.addEventListener('input', (evt) => this._isValid(evt, this._errorClass, this._inputErrorClass));
+    this._inputElements = Array.from(this._editForm.querySelectorAll(this._inputSelector));
+    this._submitButton = this._editForm.querySelector(this._submitButtonSelector);
+    this._inputElements.forEach((input) => {
+      input.addEventListener('input', (evt) => this._isValid(evt));
     });
-    this._editForm.addEventListener('input', () => this._toggleButtonState(inputElements, submitButton, this._inactiveButtonClass)); //проверка активности кнопки при наборе символов
+    this._editForm.addEventListener('input', () => this._toggleButtonState()); //проверка активности кнопки при наборе символов
   }
 
 
   //Проверка формы на валидность
-  _hasInvalidInput = (inputList) => {
-    return inputList.some((inputElement) => {
+  _hasInvalidInput = () => {
+    return this._inputElements.some((inputElement) => {
       return !inputElement.validity.valid;
     });
   }
 
   //Если форма не валидна, то кнопка становится неактивной и обратно 
-  _toggleButtonState = (inputList, button, disabledButton) => {
-    if (this._hasInvalidInput(inputList)) {
-      button.classList.add(disabledButton);
-      button.setAttribute('disabled', true);
+  _toggleButtonState = () => {
+    if (this._hasInvalidInput()) {
+      this._submitButton.classList.add(this._inactiveButtonClass);
+      this._submitButton.setAttribute('disabled', true);
     }
     else {
-      button.classList.remove(disabledButton);
-      button.removeAttribute('disabled');
+      this._submitButton.classList.remove(this._inactiveButtonClass);
+      this._submitButton.removeAttribute('disabled');
     }
   }
 
   //Функция отображения ошибки о невалидности поля
-  _showError(input, error, errorText, inputErrorClass) {
-    input.classList.add(inputErrorClass);
-    errorText.textContent = input.validationMessage;
-    errorText.classList.add(error);
+  _showError() {
+    this.input.classList.add(this._inputErrorClass);
+    this.errorText.textContent = this.input.validationMessage;
+    this.errorText.classList.add(this._errorClass);
   }
 
   //Функция скрытия ошибки о невалидности поля
-  _hideError(input, error, errorText, inputErrorClass) {
-    input.classList.remove(inputErrorClass);
-    errorText.classList.remove(error);
-    errorText.textContent = '';
+  _hideError() {
+    this.input.classList.remove(this._inputErrorClass);
+    this.errorText.classList.remove(this._errorClass);
+    this.errorText.textContent = '';
   };
 
   //Функция добавления и скрытия ошибок в зависимости от валидности полей 
-  _isValid(evt, error, inputErrorClass) {
-    const input = evt.target;
-    const errorText = document.querySelector(`#${input.id}-error`);
-    if (!input.validity.valid) {
-      this._showError(input, error, errorText, inputErrorClass);
+  _isValid(evt) {
+    this.input = evt.target;
+    this.errorText = document.querySelector(`#${this.input.id}-error`);
+    if (!this.input.validity.valid) {
+      this._showError();
 
     }
     else {
-      this._hideError(input, error, errorText, inputErrorClass);
+      this._hideError();
     }
   }
-}
+  //Убрать ошибки и обнулить кнопку сохранения при закрытии попапа
+  resetAfterClosePopup() {
+      const inputs = Array.from(this._editForm.querySelectorAll(this._inputSelector));
+      inputs.forEach((inputElement) => {
+        inputElement.classList.remove(this._inputErrorClass);
+        const errorElement = this._editForm.querySelector(`#${inputElement.id}-error`);
+        errorElement.textContent = '';
+      });
+      this._button = this._editForm.querySelector(this._submitButtonSelector);
+      this._button.classList.add(this._inactiveButtonClass);
+      this._button.setAttribute('disabled', true);
+    }
+  }
