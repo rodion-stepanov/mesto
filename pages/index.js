@@ -1,6 +1,9 @@
-import { Card } from './Card.js';
-import { closePopup, openPopup } from './utils.js';
-import { FormValidator } from './FormValidator.js';
+import { Card } from '../components/Card.js';
+import { closePopup, openPopup } from '../scripts/utils.js';
+import { FormValidator } from '../components/FormValidator.js';
+import { Section } from '../components/Section.js';
+import {Popup} from '../components/Popup.js';
+import {PopupWithImage} from '../components/PopupWithImage.js';
 
 const editProfilePopup = document.querySelector(".popup");
 const editProfileButton = document.querySelector(".profile__edit-button");
@@ -86,7 +89,7 @@ function addCardSubmitHandler(evt) {
 editProfileButton.addEventListener("click", () => {
   nameInput.value = profileName.textContent;
   jobInput.value = profileDescription.textContent;
-  
+
   editValidation.resetAfterClosePopup();
   openPopup(editProfilePopup);
 });
@@ -110,8 +113,23 @@ closeImage.addEventListener("click", () =>
   closePopup(openImage));
 
 //Загрузка начальных карточек
-initialCards.forEach((item) => {
-  const card = new Card(item, '#card');
-  const cardElement = card.generateCard();
-  cardsSection.append(cardElement);
-});
+// initialCards.forEach((item) => {
+//   const card = new Card(item, '#card');
+//   const cardElement = card.generateCard();
+//   cardsSection.append(cardElement);
+// });
+
+//Загрузка начальных карточек
+const cardList = new Section({
+  items: initialCards, renderer: (item) => {
+    const card = new Card(item, {handleCardClick: (item) => {
+      const popupWithImage = new PopupWithImage(item);
+      popupWithImage.open();
+    }
+  },'#card');
+    const cardElement = card.generateCard();
+    cardList.addItem(cardElement);
+  }
+}, '.cards');
+
+cardList.renderItems();
