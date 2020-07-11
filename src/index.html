@@ -5,7 +5,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Mesto</title>
-  <link rel="stylesheet" href="./pages/index.css" />
 </head>
 
 <body>
@@ -38,9 +37,9 @@
     <form action="#" method="GET" name="user-form" class="popup__container" novalidate>
       <button type="reset" class="popup__close-button"></button>
       <h2 class="popup__header">Редактировать профиль</h2>
-      <input autocomplete="off" id="user-name" type="text" name="user-name" class="popup__input popup__input_value_name" minlength="2" maxlength="40" required/>
+      <input autocomplete="off" id="user-name" type="text" name="userName" class="popup__input popup__input_value_name" minlength="2" maxlength="40" required/>
       <span id="user-name-error" class="popup__error popup__error_position_top"></span>
-      <input  autocomplete="off" id="user-description" type="text" name="user-description" class="popup__input popup__input_value_description" minlength="2" maxlength="200" required/>
+      <input  autocomplete="off" id="user-description" type="text" name="userDescription" class="popup__input popup__input_value_description" minlength="2" maxlength="200" required/>
       <span id="user-description-error" class="popup__error popup__error_position_bottom"></span>
       <button type="submit" class="popup__save-button popup__save-button_disabled" disabled>Сохранить</button>
     </form>
@@ -50,9 +49,9 @@
     <form action="#" method="GET" name="user-form" class="popup__container" novalidate>
       <button type="reset" class="popup__close-button popup__close-button_card_close"></button>
       <h2 class="popup__header">Новое место</h2>
-      <input  autocomplete="off" id="card-name" type="text" name="card-name" placeholder="Название" class="popup__input popup__input_place_name" minlength="1" maxlength="30" required/>
+      <input  autocomplete="off" id="card-name" type="text" name="name" placeholder="Название" class="popup__input popup__input_place_name" minlength="1" maxlength="30" required/>
       <span id="card-name-error" class="popup__error popup__error_position_top"></span>
-      <input  autocomplete="off" id="card-url" type="url" name="card-url" placeholder="Ссылка на картинку"
+      <input  autocomplete="off" id="card-url" type="url" name="link" placeholder="Ссылка на картинку"
         class="popup__input popup__input_place_image" required/>
         <span id="card-url-error" class="popup__error popup__error_position_bottom"></span>
       <button type="submit" class="popup__save-button popup__save-button_disabled" disabled>Создать</button>
@@ -78,10 +77,6 @@
     </figure>
   </template>
 
-  <script type="module" src="./components/FormValidator.js"></script>
-  <script type="module" src="./pages/index.js"></script>
-  <script type="module" src="./components/Card.js"></script>
-  <script type="module" src="./scripts/utils.js"></script>
 </body>
 
 </html>

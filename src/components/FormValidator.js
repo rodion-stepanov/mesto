@@ -18,14 +18,14 @@ export class FormValidator {
 
 
   //Проверка формы на валидность
-  _hasInvalidInput = () => {
+  _hasInvalidInput() {
     return this._inputElements.some((inputElement) => {
       return !inputElement.validity.valid;
     });
   }
 
   //Если форма не валидна, то кнопка становится неактивной и обратно 
-  _toggleButtonState = () => {
+  _toggleButtonState() {
     if (this._hasInvalidInput()) {
       this._submitButton.classList.add(this._inactiveButtonClass);
       this._submitButton.setAttribute('disabled', true);
