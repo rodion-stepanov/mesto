@@ -97,7 +97,7 @@ addCardButton.addEventListener("click", () => {
   addCardForm.setEventListeners();
   addCardValidation.resetAfterClosePopup();
 });
-const popupWithImage = new PopupWithImage(".popup_image_open");
+const popupWithImage = new PopupWithImage(".popup_image_open", ".popup__image", ".popup__caption");
 
 //Загрузка начальных карточек
 const cardList = new Section({
