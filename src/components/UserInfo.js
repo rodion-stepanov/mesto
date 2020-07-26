@@ -10,7 +10,7 @@ export class UserInfo {
         }
     }
     setUserInfo(formData) {
-        this._name.textContent = formData.userName;
-        this._description.textContent = formData.userDescription;
+        this._name.textContent = formData.name;
+        this._description.textContent = formData.about;
     }
 }

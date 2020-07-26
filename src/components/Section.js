@@ -3,8 +3,6 @@ export class Section {
         this._renderItems = items;
         this._renderer = renderer;
         this._container = document.querySelector(containerSelector);
-
-
     }
     renderItems() {
         this._renderItems.forEach(item => {
@@ -12,6 +10,6 @@ export class Section {
         });
     }
     addItem(element) {
-        this._container.prepend(element);
+        this._container.append(element);
     }
 }
