@@ -7,7 +7,7 @@ export class PopupWithImage extends Popup {
         this.caption = document.querySelector(caption);
     }
     open(data) {
-        super.setEventListeners();
+        // super.setEventListeners();
         this.image.src = data.link;
         this.image.alt = data.name;
         this.caption.textContent = data.name;

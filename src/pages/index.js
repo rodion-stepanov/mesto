@@ -18,6 +18,8 @@ const avatarButton = document.querySelector(".profile__avatar-button");
 const formAvatarEdit = document.querySelector(".popup_avatar_edit");
 const profileAvatar = document.querySelector(".profile__avatar");
 let cardList;
+let myId;
+
 
 const popupSelectors = {
   formSelector: '.popup__container',
@@ -26,6 +28,45 @@ const popupSelectors = {
   inactiveButtonClass: 'popup__save-button_disabled',
   inputErrorClass: 'popup__input_type_error',
   errorClass: 'popup__error_visible'
+}
+
+function newCard(data) {
+  const card = new Card(data, myId,
+    {
+      handleCardClick: () =>
+        popupWithImage.open(data),
+      //Удаление карточки
+      handleRemoveClick: () => {
+        popupConfirm.open(data, card);
+      },
+      //Лайки
+      handleLikeClick: () => {
+        if (card.likeActive()) {
+          card.toggleLikeButton();
+          api.removeLike(data)
+            .then((data) => {
+              card.likeCounter(data);
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+          return false;
+        }
+        else {
+          card.toggleLikeButton();
+          api.setLike(data)
+            .then((data) => {
+              card.likeCounter(data)
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+          return true;
+        }
+      }
+    }, '#card');
+  const cardElement = card.generateCard();
+  cardList.addItem(cardElement);
 }
 
 //Классы форм
@@ -70,6 +111,7 @@ const userInfo = new UserInfo({ profile: ".profile__name", description: ".profil
 
 api.getInfoUser()
   .then((data) => {
+    myId = data._id;
     document.querySelector('.profile__name').textContent = data.name;
     document.querySelector('.profile__description').textContent = data.about;
     document.querySelector('.profile__avatar').src = data.avatar;
@@ -121,7 +163,7 @@ addCardButton.addEventListener("click", () => {
 
 //Класс попапа с картинкой
 const popupWithImage = new PopupWithImage(".popup_image_open", ".popup__image", ".popup__caption");
-
+popupWithImage.setEventListeners();
 //Класс подтверждения удаления карточки 
 const popupConfirm = new PopupWithConfirm(".popup_delete_confirm", {
   handleRemoveSubmit: (evt, item, card) => {
@@ -144,42 +186,7 @@ api.getInitialCards()
   .then((result) => {
     cardList = new Section({
       items: result, renderer: (item) => {
-        const card = new Card(item,
-          {
-            handleCardClick: () =>
-              popupWithImage.open(item),
-            //Удаление карточки
-            handleRemoveClick: () => {
-              popupConfirm.open(item, card);
-            },
-            //Лайки
-            handleLikeClick: () => {
-              if (card.likeActive()) {
-                card.toggleLikeButton();
-                api.removeLike(item)
-                  .then((item) => {
-                    card.likeCounter(item);
-                  })
-                  .catch((err) => {
-                    console.log(err);
-                  });
-                return false;
-              }
-              else {
-                card.toggleLikeButton();
-                api.setLike(item)
-                  .then((item) => {
-                    card.likeCounter(item)
-                  })
-                  .catch((err) => {
-                    console.log(err);
-                  });
-                return true;
-              }
-            }
-          }, '#card');
-        const cardElement = card.generateCard();
-        cardList.addItem(cardElement);
+        newCard(item);
       }
     }, '.cards');
     cardList.renderItems();
@@ -196,42 +203,7 @@ const addCardForm = new PopupWithForm(
       addCardForm.saving(true);
       api.createCard(formData)
         .then((data) => {
-          const card = new Card(data,
-            {
-              handleCardClick: () =>
-                popupWithImage.open(data),
-              //Удаление карточки
-              handleRemoveClick: () => {
-                popupConfirm.open(data, card);
-              },
-              //Лайки
-              handleLikeClick: () => {
-                if (card.likeActive()) {
-                  card.toggleLikeButton();
-                  api.removeLike(data)
-                    .then((data) => {
-                      card.likeCounter(data);
-                    })
-                    .catch((err) => {
-                      console.log(err);
-                    });
-                  return false;
-                }
-                else {
-                  card.toggleLikeButton();
-                  api.setLike(data)
-                    .then((data) => {
-                      card.likeCounter(data)
-                    })
-                    .catch((err) => {
-                      console.log(err);
-                    });
-                  return true;
-                }
-              }
-            }, '#card');
-          const cardElement = card.generateCard();
-          cardList.addItem(cardElement);
+          newCard(data)
         })
         .catch((err) => {
           console.log(err);

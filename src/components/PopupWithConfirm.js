@@ -23,13 +23,4 @@ export class PopupWithConfirm extends Popup {
     _setEventListeners() {
         super.setEventListeners();
     }
-
-    saving(isLoad) {
-        if (isLoad) {
-            this._button.textContent = 'Сохранение...';
-        }
-        else {
-            this._button.textContent = this._startValue;
-        }
-    }
 }

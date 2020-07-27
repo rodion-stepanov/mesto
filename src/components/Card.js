@@ -1,5 +1,7 @@
+import { data } from "autoprefixer";
+
 export class Card {
-  constructor(data, { handleCardClick, handleRemoveClick, handleLikeClick }, cardSelector) {
+  constructor(data, myId, { handleCardClick, handleRemoveClick, handleLikeClick }, cardSelector) {
     this._link = data.link;
     this._name = data.name;
     this._likes = data.likes;
@@ -8,7 +10,8 @@ export class Card {
     this._handleRemoveClick = handleRemoveClick;
     this._handleLikeClick = handleLikeClick;
     this._data = data;
-    this.myId = { _id: '8763b23c68bf4bfc89163d6c' }
+    this.myId = myId;
+    this.objectId = { _id: myId };
   }
 
   _getTemplate() {
@@ -43,7 +46,7 @@ export class Card {
   //Проверка лайка при генерации карточки
   _hasLike() {
     let result = this._data.likes.find(i => {
-      return i._id === '8763b23c68bf4bfc89163d6c'
+      return i._id === this.myId;
     });
     if (result) {
       this._element.querySelector('.cards__like-button').classList.add('cards__like-button_active');
@@ -77,14 +80,14 @@ export class Card {
 
   likeActive() {
     let result = this._likes.find(item => {
-      return item._id === '8763b23c68bf4bfc89163d6c'
+      return item._id === this.myId;
     });
     if (result) {
-      this._likes.pop(this.myId);
+      this._likes.splice(this._likes.indexOf(item => item._id === this.myId), 1);
       return true;
     }
     else {
-      this._likes.push(this.myId);
+      this._likes.push(this.objectId);
       return false;
     }
   }
