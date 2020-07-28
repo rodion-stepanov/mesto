@@ -105,6 +105,7 @@ const popupChangeAvatar = new PopupWithForm('.popup_avatar_edit',
         })
     }
   });
+  popupChangeAvatar.setEventListeners();
 
 //Класс информации о пользователе
 const userInfo = new UserInfo({ profile: ".profile__name", description: ".profile__description" });
@@ -122,7 +123,7 @@ api.getInfoUser()
 
 avatarButton.addEventListener("click", () => {
   popupChangeAvatar.open();
-  popupChangeAvatar.setEventListeners();
+
   avatarValidation.resetAfterClosePopup();
 });
 
@@ -144,26 +145,27 @@ const editForm = new PopupWithForm(".popup",
         });
     }
   });
+  editForm.setEventListeners();
 
 //Открытие, закрытие и отправка данных. Попап редактирования профиля 
 editProfileButton.addEventListener("click", () => {
   editForm.open()
   nameInput.value = userInfo.getUserInfo().name;
   jobInput.value = userInfo.getUserInfo().description;
-  editForm.setEventListeners();
+  
   editValidation.resetAfterClosePopup()
 });
 
 //Открытие, закрытие и отправка данных. Попап добавления карточки
 addCardButton.addEventListener("click", () => {
   addCardForm.open();
-  addCardForm.setEventListeners();
   addCardValidation.resetAfterClosePopup();
 });
 
 //Класс попапа с картинкой
 const popupWithImage = new PopupWithImage(".popup_image_open", ".popup__image", ".popup__caption");
 popupWithImage.setEventListeners();
+
 //Класс подтверждения удаления карточки 
 const popupConfirm = new PopupWithConfirm(".popup_delete_confirm", {
   handleRemoveSubmit: (evt, item, card) => {
@@ -214,3 +216,4 @@ const addCardForm = new PopupWithForm(
         })
     }
   });
+  addCardForm.setEventListeners();
