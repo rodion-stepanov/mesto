@@ -1,6 +1,6 @@
 # Проект "Место"
 ____
-**https://rodion257.github.io/mesto/**
+**https://rodion-stepanov.github.io/mesto/**
 
 ## Описание
 Учебный проект на JavaScript.
